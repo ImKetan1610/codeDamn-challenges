@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react'
+export default function App() {
+	const [options, setOptions] = useState([
+		{ name: 'Option A', count: 0 },
+		{ name: 'Option B', count: 0 },
+		{ name: 'Option C', count: 0 },
+		{ name: 'Option D', count: 0 }
+	])
 
-function App() {
-  const [count, setCount] = useState(0)
+	const handleVote = (index) => {
+		const updatedOptions = [...options]
+		updatedOptions[index].count += 1
+		setOptions(updatedOptions)
+	}
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	return (
+		<div>
+			<h4 id="question">What is your favorite color?</h4>
+
+			{options.map((option, index) => (
+				<button
+					className="option"
+					key={index}
+					onClick={() => handleVote(index)}
+				>
+					<span>{option.name} </span>
+					Votes: <span>{option.count}</span>
+				</button>
+			))}
+		</div>
+	)
 }
-
-export default App
